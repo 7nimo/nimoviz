@@ -1,0 +1,70 @@
+{
+  "root": "apps/three",
+  "sourceRoot": "apps/three/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/three",
+        "index": "apps/three/src/index.html",
+        "baseHref": "/",
+        "main": "apps/three/src/main.tsx",
+        "polyfills": "apps/three/src/polyfills.ts",
+        "tsConfig": "apps/three/tsconfig.app.json",
+        "assets": ["apps/three/src/favicon.ico", "apps/three/src/assets"],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/three/src/environments/environment.ts",
+              "with": "apps/three/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "three:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "three:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/three/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/three"],
+      "options": {
+        "jestConfig": "apps/three/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
